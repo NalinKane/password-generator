@@ -88,34 +88,100 @@
 
       const numChar = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 
-      let message1 =
-        "How long should the password be - pick a number between 8 and 128";
+      function password() {
+        let passwordLength = prompt(
+          "How long should the password be - pick a number between 8 and 128"
+        );
+        if (isNaN(passwordLength) === true) {
+          alert("Please provide a nnumber");
+          return;
+        }
+        if (passwordLength <= 8) {
+          alert("Please choose a number greater than 8");
+          return;
+        }
+        if (passwordLength >= 128) {
+          alert("Please choose a number smaller than 128");
+          return;
+        }
 
-      prompt(message1);
+        let haveSpecialChar = confirm(
+          "Click OK to confirm you woud like special characters"
+        );
+        let haveNumericalChar = confirm(
+          "Click OK to confirm you woud like numerical characters"
+        );
+        let haveLowerCase = confirm(
+          "Click OK to confirm you woud like lowercase"
+        );
+        let haveUpperCase = confirm(
+          "Click OK to confirm you woud like uppercase"
+        );
+        if (
+          haveSpecialChar === false &&
+          haveNumericalChar === false &&
+          haveLowerCase === false &&
+          haveUpperCase === false
+        ) {
+          alert("Please select at least one character type!");
+          return;
+        }
 
-      let rand = numChar[Math.floor(Math.random() * numChar.length)];
-      console.log(rand);
-
-      let i = Number;
-      let passwordLength = i >= 10 || i <= 125;
-      if (passwordLength) {
-        prompt("Would you like special characters in your passowrd?");
-        //if prompt(true) THEN pick one from specialChar and THEHN ask =>
-
-        prompt("Would you like uppercase characters in your password?");
-        //if if prompt(true) THEN pick one from lowerCase and THEHN ask=>
-
-        prompt("Would you like lowercase characters in your password?");
-        //if prompt(true) THEN pick one from Uppercase
-
-        //THEN alert the password
-
-        //go through this funcgion as many times as the number picked for passwordLength;
+        let passwordOptions = {
+          passwordLength: Number(passwordLength),
+          haveSpecialChar: haveSpecialChar,
+          haveNumericalChar: haveNumericalChar,
+          haveLowerCase: haveLowerCase,
+          haveUpperCase: haveUpperCase
+        };
+        return passwordOptions;
       }
 
-      if (!passwordLength) {
-        prompt("Please pick a number between 8 and 128!");
+      function getRandom(arr) {
+        let randomIndex = Math.floor(Math.random() * arr.length);
+
+        let randomElement = arr[randomIndex - 1];
+        return randomElement;
       }
+
+      function generatePassword() {
+        let options = password();
+        let result = [];
+        let possibleCharacters = [];
+        let guaranteedCharacters = [];
+
+        if (options.haveSpecialChar) {
+          possibleCharacters = possibleCharacters.concat(specialChar);
+          guaranteedCharacters.push(getRandom(specialChar));
+        }
+        if (options.haveNumericalChar) {
+          possibleCharacters = possibleCharacters.concat(numChar);
+          guaranteedCharacters.push(getRandom(numChar));
+        }
+
+        if (options.haveLowerCase) {
+          possibleCharacters = possibleCharacters.concat(lowerCase);
+          guaranteedCharacters.push(getRandom(lowerCase));
+        }
+
+        if (options.haveUpperCase) {
+          possibleCharacters = possibleCharacters.concat(upperCase);
+          guaranteedCharacters.push(getRandom(upperCase));
+        }
+
+        const arrayLength =
+          options.passwordLength - guaranteedCharacters.length;
+
+        for (let i = 0; i < arrayLength; i++) {
+          result.push(getRandom(possibleCharacters));
+        }
+
+        return result.concat(guaranteedCharacters).join("");
+      }
+
+      const newPassword = generatePassword();
+
+      alert(newPassword);
     </script>
 
     <title>Random Password Generator</title>
