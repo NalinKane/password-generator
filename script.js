@@ -85,15 +85,15 @@ function password() {
     "How long should the password be - pick a number between 8 and 128"
   );
   if (isNaN(passwordLength) === true) {
-    alert("Please provide a nnumber");
+    alert("Please provide a number");
     return;
   }
   if (passwordLength <= 8) {
-    alert("Please choose a number greater than 8");
+    alert("Please choose a number equal or greater than 8");
     return;
   }
   if (passwordLength >= 128) {
-    alert("Please choose a number smaller than 128");
+    alert("Please choose a number equal or smaller than 128");
     return;
   }
 
@@ -137,7 +137,9 @@ function generatePassword() {
   let result = [];
   let possibleCharacters = [];
   let guaranteedCharacters = [];
-
+  if (!options) {
+    return;
+  }
   if (options.haveSpecialChar) {
     possibleCharacters = possibleCharacters.concat(specialChar);
     guaranteedCharacters.push(getRandom(specialChar));
@@ -163,12 +165,10 @@ function generatePassword() {
     result.push(getRandom(possibleCharacters));
   }
 
-  return result.concat(guaranteedCharacters).join("");
+  document.getElementById("output").value = result
+    .concat(guaranteedCharacters)
+    .join("");
 }
-
-// document.addEventListener("click", function() {
-//   document.getElementById("button-primary").innerHTML = "Hello World";
-// });
 
 function copyToClipboard() {
   /* Get the text field */
