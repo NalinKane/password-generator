@@ -166,6 +166,21 @@ function generatePassword() {
   return result.concat(guaranteedCharacters).join("");
 }
 
-// const newPassword = generatePassword();
+// document.addEventListener("click", function() {
+//   document.getElementById("button-primary").innerHTML = "Hello World";
+// });
 
-// alert(newPassword);
+function copyToClipboard() {
+  /* Get the text field */
+  var copyText = document.getElementById("output");
+
+  /* Select the text field */
+  copyText.select();
+  copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+
+  /* Copy the text inside the text field */
+  document.execCommand("copy");
+
+  /* Alert the copied text */
+  alert("Copied the text: " + copyText.value);
+}
