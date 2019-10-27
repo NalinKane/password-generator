@@ -88,11 +88,11 @@ function password() {
     alert("Please provide a number");
     return;
   }
-  if (passwordLength <= 8) {
+  if (passwordLength < 8) {
     alert("Please choose a number equal or greater than 8");
     return;
   }
-  if (passwordLength >= 128) {
+  if (passwordLength > 128) {
     alert("Please choose a number equal or smaller than 128");
     return;
   }
@@ -100,11 +100,13 @@ function password() {
   let haveSpecialChar = confirm(
     "Click OK to confirm you woud like special characters"
   );
-  let haveNumericalChar = confirm(
-    "Click OK to confirm you woud like numerical characters"
+  let haveNumericalChar = confirm("Click OK to confirm you woud like numbers");
+  let haveLowerCase = confirm(
+    "Click OK to confirm you woud like lowercase letters"
   );
-  let haveLowerCase = confirm("Click OK to confirm you woud like lowercase");
-  let haveUpperCase = confirm("Click OK to confirm you woud like uppercase");
+  let haveUpperCase = confirm(
+    "Click OK to confirm you woud like uppercase letters"
+  );
   if (
     haveSpecialChar === false &&
     haveNumericalChar === false &&
