@@ -80,6 +80,7 @@ const upperCase = [
 
 const numChar = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 
+//create a function called "password "ask user how long they would like their password
 function password() {
   let passwordLength = prompt(
     "How long should the password be - pick a number between 8 and 128"
@@ -88,23 +89,26 @@ function password() {
     alert("Please provide a number");
     return;
   }
-  if (passwordLength <= 8) {
+  if (passwordLength < 8) {
     alert("Please choose a number equal or greater than 8");
     return;
   }
-  if (passwordLength >= 128) {
+  if (passwordLength > 128) {
     alert("Please choose a number equal or smaller than 128");
     return;
   }
-
+  //ask user which character types they would like to include
   let haveSpecialChar = confirm(
     "Click OK to confirm you woud like special characters"
   );
-  let haveNumericalChar = confirm(
-    "Click OK to confirm you woud like numerical characters"
+  let haveNumericalChar = confirm("Click OK to confirm you woud like numbers");
+  let haveLowerCase = confirm(
+    "Click OK to confirm you woud like lowercase letters"
   );
-  let haveLowerCase = confirm("Click OK to confirm you woud like lowercase");
-  let haveUpperCase = confirm("Click OK to confirm you woud like uppercase");
+  let haveUpperCase = confirm(
+    "Click OK to confirm you woud like uppercase letters"
+  );
+  //if no character types are chosen, prompt the user to choose at least one type!
   if (
     haveSpecialChar === false &&
     haveNumericalChar === false &&
@@ -115,6 +119,7 @@ function password() {
     return;
   }
 
+  //create an array with all the password options as objects
   let passwordOptions = {
     passwordLength: Number(passwordLength),
     haveSpecialChar: haveSpecialChar,
@@ -125,12 +130,16 @@ function password() {
   return passwordOptions;
 }
 
+//create a function that chooses a random element from a given array
+
 function getRandom(arr) {
   let randomIndex = Math.floor(Math.random() * arr.length);
 
   let randomElement = arr[randomIndex - 1];
   return randomElement;
 }
+
+//create a function that will generate the password
 
 function generatePassword() {
   let options = password();
@@ -140,6 +149,7 @@ function generatePassword() {
   if (!options) {
     return;
   }
+
   if (options.haveSpecialChar) {
     possibleCharacters = possibleCharacters.concat(specialChar);
     guaranteedCharacters.push(getRandom(specialChar));
@@ -165,6 +175,7 @@ function generatePassword() {
     result.push(getRandom(possibleCharacters));
   }
 
+  //join all the characters together to create one string
   document.getElementById("output").value = result
     .concat(guaranteedCharacters)
     .join("");
