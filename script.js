@@ -145,40 +145,37 @@ function generatePassword() {
   let options = password();
   let result = [];
   let possibleCharacters = [];
-  let guaranteedCharacters = [];
   if (!options) {
     return;
   }
 
   if (options.haveSpecialChar) {
     possibleCharacters = possibleCharacters.concat(specialChar);
-    guaranteedCharacters.push(getRandom(specialChar));
+    result.push(getRandom(specialChar));
   }
   if (options.haveNumericalChar) {
     possibleCharacters = possibleCharacters.concat(numChar);
-    guaranteedCharacters.push(getRandom(numChar));
+    result.push(getRandom(numChar));
   }
 
   if (options.haveLowerCase) {
     possibleCharacters = possibleCharacters.concat(lowerCase);
-    guaranteedCharacters.push(getRandom(lowerCase));
+    result.push(getRandom(lowerCase));
   }
 
   if (options.haveUpperCase) {
     possibleCharacters = possibleCharacters.concat(upperCase);
-    guaranteedCharacters.push(getRandom(upperCase));
+    result.push(getRandom(upperCase));
   }
 
-  const arrayLength = options.passwordLength - guaranteedCharacters.length;
+  const arrayLength = options.passwordLength - result.length;
 
   for (let i = 0; i < arrayLength; i++) {
     result.push(getRandom(possibleCharacters));
   }
 
   //join all the characters together to create one string
-  document.getElementById("output").value = result
-    .concat(guaranteedCharacters)
-    .join("");
+  document.getElementById("output").value = result.join("");
 }
 
 function copyToClipboard() {
